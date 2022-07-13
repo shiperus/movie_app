@@ -12,7 +12,8 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tkpd.movieapp.databinding.ActivityMovieListBinding
-import com.tkpd.movieapp.feature.moviedetail.MovieDetailActivity
+import com.tkpd.movieapp.feature.moviedetail.view.MovieDetailActivity
+import com.tkpd.movieapp.feature.moviedetail.view.MovieDetailActivity.Companion.EXTRA_MOVIE_ID
 import com.tkpd.movieapp.feature.movielist.adapter.MovieItemViewHolder
 import com.tkpd.movieapp.feature.movielist.adapter.MovieListAdapter
 import com.tkpd.movieapp.model.MovieItem
@@ -103,11 +104,12 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     }
 
     override fun onMovieItemClicked(movieItem: MovieItem) {
-        redirectToMovieDetailPage()
+        redirectToMovieDetailPage(movieItem.id)
     }
 
-    private fun redirectToMovieDetailPage() {
+    private fun redirectToMovieDetailPage(id: Int) {
         val intentMovieDetailPage = Intent(this, MovieDetailActivity::class.java)
+        intentMovieDetailPage.putExtra(EXTRA_MOVIE_ID, id)
         startActivity(intentMovieDetailPage)
     }
 
