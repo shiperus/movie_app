@@ -89,6 +89,7 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
 
     private fun populateListMovie(popularMoviesData: PopularMovies) {
         adapter?.populateListMovie(popularMoviesData.movieItems)
+        reportFullyDrawn()
     }
 
     private fun hideLoading() {
