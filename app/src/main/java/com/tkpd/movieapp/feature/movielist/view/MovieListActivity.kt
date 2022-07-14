@@ -59,6 +59,7 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
 
     private fun getListMovie() {
         viewModel.getListPopularMovie()
+        Thread.sleep(5000)
     }
 
     private fun setupRecyclerView() {
