@@ -51,6 +51,10 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
 
     }
 
+    private fun someProcess() {
+        Thread.sleep(3000)
+    }
+
     private fun initView() {
         recyclerViewMovieList = binding.rvMovieList
         toolbar = binding.toolbar
