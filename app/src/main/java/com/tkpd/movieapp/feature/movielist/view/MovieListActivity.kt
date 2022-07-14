@@ -87,10 +87,13 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         progressBar = binding.loadingSpinner
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     private fun getListMovie() {
         viewModel.getListPopularMovie()
+        Trace.beginAsyncSection("MovieListActivity.getListMovie", 1)
         lifecycleScope.launch(Dispatchers.IO) {
             importantFunction()
+            Trace.endAsyncSection("MovieListActivity.getListMovie", 1)
         }
     }
 
