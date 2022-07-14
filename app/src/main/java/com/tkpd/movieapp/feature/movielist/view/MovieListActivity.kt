@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,8 @@ import com.tkpd.movieapp.util.MovieListViewModelFactory
 import com.tkpd.movieapp.util.Result
 import com.tkpd.movieapp.util.hide
 import com.tkpd.movieapp.util.show
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
 
@@ -86,7 +89,9 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
 
     private fun getListMovie() {
         viewModel.getListPopularMovie()
-        importantFunction()
+        lifecycleScope.launch(Dispatchers.IO) {
+            importantFunction()
+        }
     }
 
     private fun importantFunction() {
