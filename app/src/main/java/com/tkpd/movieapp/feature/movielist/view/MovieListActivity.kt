@@ -1,11 +1,14 @@
 package com.tkpd.movieapp.feature.movielist.view
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Trace
 import android.view.LayoutInflater
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.observe
@@ -39,15 +42,39 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         MovieListAdapter(this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     override fun onCreate(savedInstanceState: Bundle?) {
+        Trace.beginSection("MovieListActivity.onCreate")
         super.onCreate(savedInstanceState)
+        Trace.endSection()
+
+        Trace.beginSection("MovieListActivity.binding")
         binding = ActivityMovieListBinding.inflate(LayoutInflater.from(this))
+        Trace.endSection()
+
+        Trace.beginSection("MovieListActivity.setContentView")
         setContentView(binding.root)
+        Trace.endSection()
+
+        Trace.beginSection("MovieListActivity.initView")
         initView()
+        Trace.endSection()
+
+        Trace.beginSection("MovieListActivity.setSupportActionBar")
         setSupportActionBar(toolbar)
+        Trace.endSection()
+
+        Trace.beginSection("MovieListActivity.setupRecyclerView")
         setupRecyclerView()
+        Trace.endSection()
+
+        Trace.beginSection("MovieListActivity.getListMovie")
         getListMovie()
+        Trace.endSection()
+
+        Trace.beginSection("MovieListActivity.observeLiveData")
         observeLiveData()
+        Trace.endSection()
 
     }
 
