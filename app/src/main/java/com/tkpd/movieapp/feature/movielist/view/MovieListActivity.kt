@@ -90,10 +90,10 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun getListMovie() {
         viewModel.getListPopularMovie()
-        Trace.beginAsyncSection("MovieListActivity.getListMovie", 1)
+        Trace.beginAsyncSection("MovieListActivity.importantFunction", 1)
         lifecycleScope.launch(Dispatchers.IO) {
             importantFunction()
-            Trace.endAsyncSection("MovieListActivity.getListMovie", 1)
+            Trace.endAsyncSection("MovieListActivity.importantFunction", 1)
         }
     }
 
