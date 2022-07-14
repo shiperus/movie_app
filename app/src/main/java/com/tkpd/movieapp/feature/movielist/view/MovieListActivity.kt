@@ -59,6 +59,10 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
 
     private fun getListMovie() {
         viewModel.getListPopularMovie()
+        importantFunction()
+    }
+
+    private fun importantFunction() {
         Thread.sleep(5000)
     }
 
