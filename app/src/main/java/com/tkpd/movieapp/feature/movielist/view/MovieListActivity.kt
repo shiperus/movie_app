@@ -2,6 +2,7 @@ package com.tkpd.movieapp.feature.movielist.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -9,6 +10,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.observe
+import androidx.metrics.performance.JankStats
+import androidx.metrics.performance.PerformanceMetricsState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tkpd.movieapp.databinding.ActivityMovieListBinding
@@ -22,6 +25,8 @@ import com.tkpd.movieapp.util.MovieListViewModelFactory
 import com.tkpd.movieapp.util.Result
 import com.tkpd.movieapp.util.hide
 import com.tkpd.movieapp.util.show
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.asExecutor
 
 class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
 
@@ -38,6 +43,11 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     private val adapter: MovieListAdapter? by lazy {
         MovieListAdapter(this)
     }
+    private lateinit var jankStats: JankStats
+    private val jankFrameListener = JankStats.OnFrameListener { frameData ->
+        // A real app could do something more interesting, like writing the info to local storage and later on report it.
+        Log.v("JankStatsSample", frameData.toString())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +59,27 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         getListMovie()
         observeLiveData()
 
+        val metricsStateHolder = PerformanceMetricsState.getForHierarchy(binding.root)
+
+        // initialize JankStats for current window
+        jankStats = JankStats.createAndTrack(
+            window,
+            Dispatchers.Default.asExecutor(),
+            jankFrameListener
+        )
+
+        // add activity name as state
+        metricsStateHolder.state?.addState("Activity", javaClass.simpleName)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        jankStats.isTrackingEnabled = true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        jankStats.isTrackingEnabled = false
     }
 
     private fun initView() {
