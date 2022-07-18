@@ -48,7 +48,7 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         setupRecyclerView()
         getListMovie()
         observeLiveData()
-
+        Thread.sleep(1000)
     }
 
     private fun initView() {
