@@ -48,7 +48,12 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         setupRecyclerView()
         getListMovie()
         observeLiveData()
-
+        recyclerViewMovieList?.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                Thread.sleep(100)
+            }
+        })
     }
 
     private fun initView() {
