@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "509633408833",
+    "project_id": "tkpd-android-workshop-perf",
+    "storage_bucket": "tkpd-android-workshop-perf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509633408833:android:9d72d0af39846182d13bc0",
+        "android_client_info": {
+          "package_name": "com.tkpd.movieapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509633408833-8eomcgbpsl9al8tkbsmaq7jnl6fv7jrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmHeswa3SLUY88W17SSkRNCGZBsbHEXB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "509633408833-8eomcgbpsl9al8tkbsmaq7jnl6fv7jrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509633408833:android:e3ddfdeba0821766d13bc0",
+        "android_client_info": {
+          "package_name": "com.tkpd.movieapp_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509633408833-8eomcgbpsl9al8tkbsmaq7jnl6fv7jrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmHeswa3SLUY88W17SSkRNCGZBsbHEXB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "509633408833-8eomcgbpsl9al8tkbsmaq7jnl6fv7jrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

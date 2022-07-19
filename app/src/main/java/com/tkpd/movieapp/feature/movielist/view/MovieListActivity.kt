@@ -11,6 +11,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.perf.ktx.performance
+import com.google.firebase.perf.metrics.AddTrace
 import com.tkpd.movieapp.databinding.ActivityMovieListBinding
 import com.tkpd.movieapp.feature.moviedetail.view.MovieDetailActivity
 import com.tkpd.movieapp.feature.moviedetail.view.MovieDetailActivity.Companion.EXTRA_MOVIE_ID
@@ -49,10 +52,26 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         getListMovie()
         observeLiveData()
 
+        /** Change trace name based on your needs */
+        val trace = Firebase.performance.newTrace("some_process")
+        trace.start()
+
+        /** Put all the function that you want to trace here */
+        someProcess()
+
+        trace.stop()
     }
 
     private fun someProcess() {
         Thread.sleep(3000)
+    }
+
+    /** If you just want to trace 1 function, you can simply add @AddTrace annotation
+     * above the function
+     */
+    @AddTrace(name = "another_process")
+    private fun anotherProcess() {
+        Thread.sleep(2000)
     }
 
     private fun initView() {
