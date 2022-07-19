@@ -48,7 +48,10 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         setupRecyclerView()
         getListMovie()
         observeLiveData()
+    }
 
+    private fun myCoolFunction() {
+        Thread.sleep(5000)
     }
 
     private fun initView() {
@@ -88,6 +91,7 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     }
 
     private fun populateListMovie(popularMoviesData: PopularMovies) {
+        myCoolFunction()
         adapter?.populateListMovie(popularMoviesData.movieItems)
     }
 
@@ -113,4 +117,8 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         startActivity(intentMovieDetailPage)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }
