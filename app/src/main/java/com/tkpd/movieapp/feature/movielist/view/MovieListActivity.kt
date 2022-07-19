@@ -116,5 +116,4 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         intentMovieDetailPage.putExtra(EXTRA_MOVIE_ID, id)
         startActivity(intentMovieDetailPage)
     }
-
 }
