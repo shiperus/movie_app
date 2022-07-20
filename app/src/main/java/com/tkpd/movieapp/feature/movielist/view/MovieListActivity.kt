@@ -64,6 +64,12 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     private fun setupRecyclerView() {
         recyclerViewMovieList?.layoutManager = GridLayoutManager(this, GRID_SPAN_COUNT)
         recyclerViewMovieList?.adapter = adapter
+        recyclerViewMovieList?.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                Thread.sleep(80)
+            }
+        })
     }
 
     private fun observeLiveData() {
