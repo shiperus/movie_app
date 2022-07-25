@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tkpd.movieapp.databinding.ActivityMovieListBinding
 import com.tkpd.movieapp.feature.moviedetail.view.MovieDetailActivity
 import com.tkpd.movieapp.feature.moviedetail.view.MovieDetailActivity.Companion.EXTRA_MOVIE_ID
+import com.tkpd.movieapp.feature.movielist.ImportantClass
 import com.tkpd.movieapp.feature.movielist.adapter.MovieItemViewHolder
 import com.tkpd.movieapp.feature.movielist.adapter.MovieListAdapter
 import com.tkpd.movieapp.model.MovieItem
@@ -35,6 +36,7 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     private var progressBar: ProgressBar? = null
     private val viewModelFactory = MovieListViewModelFactory()
     private val viewModel: MovieListViewModel by viewModels(factoryProducer = { viewModelFactory })
+    private val importantClass: ImportantClass = ImportantClass()
     private val adapter: MovieListAdapter? by lazy {
         MovieListAdapter(this)
     }
@@ -48,7 +50,7 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         setupRecyclerView()
         getListMovie()
         observeLiveData()
-
+        importantClass.testLog()
     }
 
     private fun initView() {
@@ -64,12 +66,6 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     private fun setupRecyclerView() {
         recyclerViewMovieList?.layoutManager = GridLayoutManager(this, GRID_SPAN_COUNT)
         recyclerViewMovieList?.adapter = adapter
-        recyclerViewMovieList?.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                Thread.sleep(80)
-            }
-        })
     }
 
     private fun observeLiveData() {
