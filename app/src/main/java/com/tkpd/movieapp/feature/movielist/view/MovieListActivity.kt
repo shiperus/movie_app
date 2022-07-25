@@ -1,8 +1,10 @@
 package com.tkpd.movieapp.feature.movielist.view
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.ViewTreeObserver
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -38,6 +40,9 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     private val adapter: MovieListAdapter? by lazy {
         MovieListAdapter(this)
     }
+    private var globalLayoutListener: ViewTreeObserver.OnGlobalLayoutListener? = ViewTreeObserver.OnGlobalLayoutListener {
+        Thread.sleep(1000)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +53,6 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         setupRecyclerView()
         getListMovie()
         observeLiveData()
-        Thread.sleep(1000)
     }
 
     private fun initView() {
@@ -64,6 +68,7 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     private fun setupRecyclerView() {
         recyclerViewMovieList?.layoutManager = GridLayoutManager(this, GRID_SPAN_COUNT)
         recyclerViewMovieList?.adapter = adapter
+        recyclerViewMovieList?.viewTreeObserver?.addOnGlobalLayoutListener(globalLayoutListener)
     }
 
     private fun observeLiveData() {
@@ -89,7 +94,9 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
 
     private fun populateListMovie(popularMoviesData: PopularMovies) {
         adapter?.populateListMovie(popularMoviesData.movieItems)
-        reportFullyDrawn()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            reportFullyDrawn()
+        }
     }
 
     private fun hideLoading() {
@@ -98,6 +105,12 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
 
     private fun showLoading() {
         progressBar?.show()
+    }
+
+    override fun onDestroy() {
+        recyclerViewMovieList?.viewTreeObserver?.removeOnGlobalLayoutListener(globalLayoutListener)
+        globalLayoutListener = null
+        super.onDestroy()
     }
 
     private fun showToasterError(throwable: Throwable) {
