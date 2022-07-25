@@ -60,6 +60,7 @@ fun ImageView.loadImageRounded(imageUrl: String, roundedValue: Int = 24) {
 fun ImageView.loadImage(imageUrl: String) {
     Glide.with(this.context)
         .load(imageUrl.createImageUrl())
+        .override(4000)
         .error(ContextCompat.getDrawable(this.context, R.drawable.ic_broken_image_black_24dp))
         .placeholder(ContextCompat.getDrawable(this.context, R.drawable.ic_image_black_24dp))
         .into(this)
