@@ -105,7 +105,7 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     }
 
     override fun onMovieItemClicked(movieItem: MovieItem) {
-        importantClass?.testLog()
+        importantClass.testLog()
         redirectToMovieDetailPage(movieItem.id)
     }
 
