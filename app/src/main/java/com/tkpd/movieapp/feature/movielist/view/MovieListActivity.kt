@@ -50,7 +50,6 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         setupRecyclerView()
         getListMovie()
         observeLiveData()
-        importantClass.testLog()
     }
 
     private fun initView() {
@@ -106,6 +105,7 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     }
 
     override fun onMovieItemClicked(movieItem: MovieItem) {
+        importantClass?.testLog()
         redirectToMovieDetailPage(movieItem.id)
     }
 
