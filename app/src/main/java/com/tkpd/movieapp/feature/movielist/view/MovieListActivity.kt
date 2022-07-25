@@ -108,9 +108,9 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
     }
 
     override fun onDestroy() {
+        super.onDestroy()
         recyclerViewMovieList?.viewTreeObserver?.removeOnGlobalLayoutListener(globalLayoutListener)
         globalLayoutListener = null
-        super.onDestroy()
     }
 
     private fun showToasterError(throwable: Throwable) {
