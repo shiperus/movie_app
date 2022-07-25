@@ -7,7 +7,7 @@ data class PopularMovies(
     @SerializedName("page")
     val page: Int = 0,
     @SerializedName("results")
-    val movieItems: List<MovieItem> = listOf(),
+    val movieItems: MutableList<MovieItem> = mutableListOf(),
     @SerializedName("total_pages")
     val totalPages: Int = 0,
     @SerializedName("total_results")
