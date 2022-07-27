@@ -9,8 +9,18 @@ import com.tkpd.movieapp.util.stateCall
 /**
  * Created by Yehezkiel on 17/05/20
  */
-class MovieListRepositoryImpl : MovieListRepository {
+class MovieListRepositoryImpl() : MovieListRepository {
     override suspend fun getMovieListFromAPI(): Result<PopularMovies>? {
+        val data = RetrofitInstanceBuilder.RETROFIT_INSTANCE.getTopRatedMoviesRefresh(
+            MovieConstant.DEFAULT_PAGE_PARAM,
+            MovieConstant.DEFAULT_LANGUAGE_PARAM
+        )
+        return stateCall {
+            data
+        }
+    }
+
+    override suspend fun getMovieListFromCache(): Result<PopularMovies>? {
         val data = RetrofitInstanceBuilder.RETROFIT_INSTANCE.getTopRatedMovies(
             MovieConstant.DEFAULT_PAGE_PARAM,
             MovieConstant.DEFAULT_LANGUAGE_PARAM

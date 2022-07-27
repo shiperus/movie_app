@@ -116,4 +116,12 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
         startActivity(intentMovieDetailPage)
     }
 
+    /**
+     * Don't remove onBackPressed
+     * For business purpose, this is necessary
+     */
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }
