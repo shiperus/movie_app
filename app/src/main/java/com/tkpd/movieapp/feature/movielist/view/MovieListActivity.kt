@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tkpd.movieapp.databinding.ActivityMovieListBinding
 import com.tkpd.movieapp.feature.moviedetail.view.MovieDetailActivity
 import com.tkpd.movieapp.feature.moviedetail.view.MovieDetailActivity.Companion.EXTRA_MOVIE_ID
+import com.tkpd.movieapp.feature.moviedetail.view.MovieDetailActivity.Companion.EXTRA_MOVIE_OVERVIEW
+import com.tkpd.movieapp.feature.moviedetail.view.MovieDetailActivity.Companion.EXTRA_MOVIE_TITLE
 import com.tkpd.movieapp.feature.movielist.ImportantClass
 import com.tkpd.movieapp.feature.movielist.adapter.MovieItemViewHolder
 import com.tkpd.movieapp.feature.movielist.adapter.MovieListAdapter
@@ -107,12 +109,14 @@ class MovieListActivity : AppCompatActivity(), MovieItemViewHolder.Listener {
 
     override fun onMovieItemClicked(movieItem: MovieItem) {
         importantClass.testLog()
-        redirectToMovieDetailPage(movieItem.id)
+        redirectToMovieDetailPage(movieItem.id, movieItem)
+        print(movieItem.overview)
     }
 
-    private fun redirectToMovieDetailPage(id: Int) {
+    private fun redirectToMovieDetailPage(id: Int, movieItem: MovieItem) {
         val intentMovieDetailPage = Intent(this, MovieDetailActivity::class.java)
         intentMovieDetailPage.putExtra(EXTRA_MOVIE_ID, id)
+
         startActivity(intentMovieDetailPage)
     }
 

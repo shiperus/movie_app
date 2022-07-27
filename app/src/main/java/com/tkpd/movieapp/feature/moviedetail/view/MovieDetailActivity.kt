@@ -3,6 +3,7 @@ package com.tkpd.movieapp.feature.moviedetail.view
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,9 @@ class MovieDetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_MOVIE_ID = "extra_movie_id"
+        const val EXTRA_MOVIE_OVERVIEW = "extra_movie_overview"
+        const val EXTRA_MOVIE_TITLE = "extra_movie_title"
+
     }
 
     private val viewModel: MovieDetailViewModel by viewModels(
@@ -31,6 +35,8 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val movieId = intent.extras?.getInt(EXTRA_MOVIE_ID) ?: 0
+        val movieOverview = intent.extras?.getString(EXTRA_MOVIE_OVERVIEW) ?: ""
+        val movieTitle = intent.extras?.getString(EXTRA_MOVIE_TITLE) ?: ""
 
         binding = ActivityMovieDetailBinding.inflate(LayoutInflater.from(this))
         setContentView(binding?.root)
@@ -38,7 +44,22 @@ class MovieDetailActivity : AppCompatActivity() {
         observeLiveData()
         showLoading()
 
+        setMovieDetailTTFDListener()
         viewModel.getMovieDetail(movieId)
+    }
+
+    private fun setMovieDetailTTFDListener() {
+        binding?.tvSynopsis?.viewTreeObserver?.addOnGlobalLayoutListener(
+            object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    if (binding?.tvSynopsis?.text?.isNotEmpty() == true) {
+                        reportFullyDrawn()
+                        hideLoading()
+                        binding?.tvSynopsis?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
+                    }
+                }
+            }
+        )
     }
 
     override fun onDestroy() {

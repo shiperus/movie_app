@@ -12,6 +12,10 @@ class MovieDetailRepositoryImpl : MovieDetailRepository {
 
     override suspend fun getMovieDetailFromAPI(movieId:Int): Result<MovieDetail>? {
         val data = RetrofitInstanceBuilder.RETROFIT_INSTANCE.getMovieDetail(movieId)
+        /**
+         * Don't delete this!
+         */
+        Thread.sleep(2000)
         return stateCall {
             data
         }
