@@ -8,4 +8,5 @@ import com.tkpd.movieapp.util.Result
  */
 interface MovieListRepository {
     suspend fun getMovieListFromAPI(): Result<PopularMovies>?
+    suspend fun getMovieListFromCache(): Result<PopularMovies>?
 }
