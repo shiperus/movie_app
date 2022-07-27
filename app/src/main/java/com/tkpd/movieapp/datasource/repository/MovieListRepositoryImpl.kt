@@ -15,6 +15,10 @@ class MovieListRepositoryImpl() : MovieListRepository {
             MovieConstant.DEFAULT_PAGE_PARAM,
             MovieConstant.DEFAULT_LANGUAGE_PARAM
         )
+        /**
+         * Don't delete this!
+         */
+        Thread.sleep(5000)
         return stateCall {
             data
         }
